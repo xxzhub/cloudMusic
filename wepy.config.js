@@ -12,14 +12,18 @@ module.exports = {
     alias: {
       counter: path.join(__dirname, 'src/components/counter'),
       '@': path.join(__dirname, 'src'),
-      '@vant':path.join(__dirname,'src/components/van/dist')
+      '@vant':path.join(__dirname,'src/components/van')
     },
     aliasFields: ['wepy', 'weapp'],
     modules: ['node_modules']
   },
+ 
   compilers: {
     less: {
       compress: prod
+    },
+    sass: {
+      'outputStyle': 'compressed'
     },
     babel: {
       sourceMap: true,

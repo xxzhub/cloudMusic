@@ -1,0 +1,44 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-29 17:08:01
+ * @LastEditTime: 2020-06-29 22:55:35
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \wxCloudMusic\src\pages\personalCenter\components\songType.wpy
+-->
+
+<style lang="sass" scoped>
+
+</style>
+
+<template>
+        <van-tabs animated>
+            <van-tab title="创建歌单">
+                <div style="width: 100%;">
+                    <song-list-item songName="那些评论超aaaaaaaaaaaaaaaaaa过10完" songCount="10" imgUrl="https://img.yzcdn.cn/vant/cat.jpeg"></song-list-item>
+                </div>
+               
+            </van-tab>
+            <van-tab title="收藏歌单">内容 2</van-tab>
+          </van-tabs>
+</template>
+
+<script>
+    import wepy from '@wepy/core'
+
+    wepy.component({
+        data: {
+
+        }
+    })
+</script>
+
+<config>
+    {
+    'usingComponents':{
+    "van-tab": "~@vant/tab/index",
+    "van-tabs": "~@vant/tabs/index",
+    'song-list-item': './songListItem'
+    }
+    }
+</config>

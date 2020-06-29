@@ -1,91 +1,123 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-06 16:30:46
- * @LastEditTime: 2020-06-06 16:42:22
+ * @LastEditTime: 2020-06-23 20:43:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \wxCloudMusic\src\app.wpy
---> 
+-->
 <style lang="less">
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-}
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
 </style>
 
 <script>
-import wepy from '@wepy/core'
-import eventHub from './common/eventHub'
-import vuex from '@wepy/x'
-import 'wepy-async-function'
+  import wepy from '@wepy/core'
+  import eventHub from './common/eventHub'
+  import vuex from '@wepy/x'
+  import 'wepy-async-function'
 
-wepy.use(vuex)
+  wepy.use(vuex)
 
-wepy.app({
-  hooks: {
-    // App 级别 hook，对整个 App 生效
-    // 同时存在 Page hook 和 App hook 时，优先执行 Page hook，返回值再交由 App hook 处
-    'before-setData': function (dirty) {
-      console.log('setData dirty: ', dirty)
-      return dirty
-    }
-  },
-  globalData: {
-    userInfo: null
-  },
+  wepy.app({
+    hooks: {
+      // App 级别 hook，对整个 App 生效
+      // 同时存在 Page hook 和 App hook 时，优先执行 Page hook，返回值再交由 App hook 处
+      'before-setData': function (dirty) {
+        console.log('setData dirty: ', dirty)
+        return dirty
+      }
+    },
+    globalData: {
+      userInfo: null
+    },
 
-  onLaunch() {
-    this.testAsync()
-    eventHub.$on('app-launch', (...args) => {
-      console.log('app-launch event emitted, the params are:')
-      console.log(args)
-    })
-  },
-
-  methods: {
-
-    sleep (s) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve('promise resolved')
-        }, s * 1000)
+    onLaunch() {
+      this.testAsync()
+      eventHub.$on('app-launch', (...args) => {
+        console.log('app-launch event emitted, the params are:')
+        console.log(args)
       })
     },
 
-    async testAsync () {
-      let d = await this.sleep(3)
-      console.log(d)
+    methods: {
+
+      sleep(s) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve('promise resolved')
+          }, s * 1000)
+        })
+      },
+
+      async testAsync() {
+        let d = await this.sleep(3)
+        console.log(d)
+      }
     }
+  })
+
+  export default class extends wepy.app {
+
+    constructor() {
+      super();
+      this.use('promisify');
+    }
+
   }
-})
-
-export default class extends wepy.app {
-
-    constructor () {
-        super();
-        this.use('promisify');
-    }
-
-}
 </script>
 <config>
-{
-    pages: [
-      'pages/personalCenter/index',
-      'pages/cloudVillage/index',
-      'pages/discovery/index',
-      'pages/mv/index',
-      'pages/index'
-    ],
-    window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+  {
+  pages: [
+  'pages/personalCenter/index',
+  'pages/mv/index',
+  'pages/index',
+  'pages/cloudVillage/index',
+  'pages/discovery/index'
+  ],
+  window: {
+  backgroundTextStyle: 'light',
+  navigationBarBackgroundColor: '#fff',
+  navigationBarTitleText: 'WeChat',
+  navigationBarTextStyle: 'white',
+  navigationStyle:"custom"
+  },
+  tabBar:{
+  'color':"#fff",
+  'selectedColor':"#07c160",
+  'backgroundColor':"#1f2020",
+  'list':[
+     {
+       'pagePath':"pages/discovery/index",
+       'text':"发现",
+       'iconPath':"static/icon/discovery.png",
+       'selectedIconPath':"static/icon/selected-discovery.png"
+     },
+     {
+       'pagePath':"pages/mv/index",
+       'text':"视频",
+       'iconPath':"static/icon/mv.png",
+       'selectedIconPath':"static/icon/selected-mv.png"
+     },
+     {
+      'pagePath':"pages/cloudVillage/index",
+      'text':"动态",
+      'iconPath':"static/icon/cloudVillage.png",
+      'selectedIconPath':"static/icon/selected-cloudVillage.png"
+    },
+    {
+      'pagePath':"pages/personalCenter/index",
+      'text':"我的",
+      'iconPath':"static/icon/my.png",
+      'selectedIconPath':"static/icon/selected-my.png"
     }
-}
+  ]
+  }
+  }
 </config>
